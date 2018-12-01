@@ -5,7 +5,6 @@ from utils.wiki_logger import WikiLogger
 
 logger = WikiLogger().logger
 
-
 CURRENT_DIR = os.path.dirname(os.path.realpath(__name__))
 HOME = os.path.dirname(os.path.dirname(CURRENT_DIR))
 DATA_DIR = os.path.join(HOME, 'data')
@@ -18,12 +17,14 @@ CAT_LINKS = 'simplewiki-20181120-categorylinks.sql'
 PAGE_LINKS = 'simplewiki-20181120-pagelinks.sql'
 CAT = 'simplewiki-20181120-category.sql'
 CHANGE_LOGS = 'simplewiki-20181120-change_tag.sql'
+REVISION = 'simplewiki-20181120-revision.sql'
 
 
 CREATE_PAGE_TABLE = 'create_pages_table.sql'
 CREATE_CAT_TABLE = 'create_category_table.sql'
 CREATE_CAT_LINKS_TABLE = 'create_category_links.sql'
 CREATE_PAGELINKS_TABLE = 'create_pagelinks_table.sql'
+CREATE_REVISION_TABLE = 'create_revision_table.sql'
 
 db_instance = DBConnect()
 
@@ -49,6 +50,8 @@ def run_sql_file(input_file, file_dir):
     for stmt in stmts:
         db_instance.cursor.execute(stmt)
         logger.info("{} loaded".format(filename))
+        logger.debug("{} ".format(stmt))
+        db_instance.db_connection.commit()
 
 def create_tables():
     filenames = [CREATE_PAGE_TABLE, CREATE_PAGELINKS_TABLE, CREATE_CAT_LINKS_TABLE, CREATE_CAT_TABLE]
@@ -60,10 +63,19 @@ def load_data():
     #file_list = [CAT]
     for file in file_list:
         run_sql_file(file, DATA_DIR)
-        logger.info("{} loaded".format(file))
+
+
+def convert_xml_to_sql(input_file):
+    pass
 
 
 
 if __name__ == '__main__':
-    run_sql_file(CHANGE_LOGS,DATA_DIR)
+    # run_sql_file(CREATE_PAGE_TABLE, TABLE_SETUP)
+    # run_sql_file(PAGE, DATA_DIR)
+    # run_sql_file(CREATE_CAT_TABLE, TABLE_SETUP)
+    # run_sql_file(CREATE_PAGELINKS_TABLE, TABLE_SETUP)
+    # run_sql_file(CREATE_PAGELINKS_TABLE, TABLE_SETUP)
+    run_sql_file(CREATE_REVISION_TABLE, TABLE_SETUP)
+    run_sql_file(REVISION, DATA_DIR)
 

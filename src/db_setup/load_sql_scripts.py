@@ -71,11 +71,14 @@ def convert_xml_to_sql(input_file):
 
 
 if __name__ == '__main__':
+    pass
     # run_sql_file(CREATE_PAGE_TABLE, TABLE_SETUP)
     # run_sql_file(PAGE, DATA_DIR)
     # run_sql_file(CREATE_CAT_TABLE, TABLE_SETUP)
     # run_sql_file(CREATE_PAGELINKS_TABLE, TABLE_SETUP)
     # run_sql_file(CREATE_PAGELINKS_TABLE, TABLE_SETUP)
-    run_sql_file(CREATE_REVISION_TABLE, TABLE_SETUP)
-    run_sql_file(REVISION, DATA_DIR)
+    # run_sql_file(CREATE_REVISION_TABLE, TABLE_SETUP)
+    run_sql_file(CREATE_CAT_LINKS_TABLE, TABLE_SETUP)
+    run_sql_file(CAT_LINKS, DATA_DIR)
+    # run_sql_file(REVISION, DATA_DIR)
 

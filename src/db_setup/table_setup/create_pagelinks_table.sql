@@ -10,20 +10,19 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `category`
+-- Table structure for table `pagelinks`
 --
 
- DROP TABLE IF EXISTS `category`;
+ DROP TABLE IF EXISTS `pagelinks`;
  /*!40101 SET @saved_cs_client     = @@character_set_client */;
  /*!40101 SET character_set_client = utf8 */;
- CREATE TABLE `category` (
-   `cat_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-   `cat_title` varbinary(255) NOT NULL DEFAULT '',
-   `cat_pages` int(11) NOT NULL DEFAULT '0',
-   `cat_subcats` int(11) NOT NULL DEFAULT '0',
-   `cat_files` int(11) NOT NULL DEFAULT '0',
-   PRIMARY KEY (`cat_id`),
-   UNIQUE KEY `cat_title` (`cat_title`),
-   KEY `cat_pages` (`cat_pages`)
- ) ENGINE=InnoDB AUTO_INCREMENT=1501246 DEFAULT CHARSET=binary;
+ CREATE TABLE `pagelinks` (
+   `pl_from` int(8) unsigned NOT NULL DEFAULT '0',
+   `pl_namespace` int(11) NOT NULL DEFAULT '0',
+   `pl_title` varbinary(255) NOT NULL DEFAULT '',
+   `pl_from_namespace` int(11) NOT NULL DEFAULT '0',
+   PRIMARY KEY (`pl_from`,`pl_namespace`,`pl_title`),
+   KEY `pl_namespace` (`pl_namespace`,`pl_title`,`pl_from`),
+   KEY `pl_backlinks_namespace` (`pl_from_namespace`,`pl_namespace`,`pl_title`,`pl_from`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=binary ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;

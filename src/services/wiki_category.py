@@ -59,4 +59,4 @@ def find_pages_under_cat(category):
 
 
 if __name__ == "__main__":
-    logger.debug(find_pages_under_cat('Yorkshire'))
+    logger.debug(find_pages_under_cat('South_Korea'))

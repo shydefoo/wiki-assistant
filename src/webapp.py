@@ -12,7 +12,7 @@ def homepage():
     print(dashboard)
     return render_template('dashboard.html')
 
-@app.route('/find_outdated_page/', methods=['POST'])
+@app.route('/find_outdated_page', methods=['POST'])
 def find_outdated_cat():
     if request.method == 'POST':
         category = request.form.get('category', None)

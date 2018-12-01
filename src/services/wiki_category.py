@@ -1,6 +1,7 @@
 from db_setup.DBConnect import DBConnect
 from utils.wiki_logger import WikiLogger
 
+
 logger = WikiLogger().logger
 db_instance = DBConnect()
 

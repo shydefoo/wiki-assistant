@@ -1,11 +1,16 @@
+import os
 from flask import Flask
-from flask import request, Response
+from flask import request, Response, render_template
 from services import wiki_category
 app = Flask(__name__)
 
+HTML_TEMPLATES = os.path.join(os.path.dirname(__name__), 'templates')
+
 @app.route('/')
 def homepage():
-    return Response("Hello world")
+    dashboard = os.path.join(HTML_TEMPLATES, 'dashboard.html')
+    print(dashboard)
+    return render_template('dashboard.html')
 
 @app.route('/find_outdated_page/', methods=['POST'])
 def find_outdated_cat():

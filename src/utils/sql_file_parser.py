@@ -26,3 +26,6 @@ def parse_sql(filename):
         else:
             stmts.append(line.strip())
     return stmts
+
+
+

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db_service:
+    image: bitnami/mysql
+    environment:
+    - ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_DATABASE=wiki_database
+    networks:
+    - webnet
+    ports:
+      - "3306:3306"
+    deploy:
+      replicas: 1
+  webapp:
+    image: wiki_app:latest
+    deploy:
+      replicas: 1
+    ports:
+      - "8000:8000"
+    networks:
+      - webnet
+    depends_on:
+      - db_service
+
+networks:
+  webnet:

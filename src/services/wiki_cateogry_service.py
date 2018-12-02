@@ -26,32 +26,26 @@ class OutdatednessByCat(ServiceBase):
         return query
 
     def get_result(self, category):
-        try:
-            val, time = self.execute_category_query(category)
-            result = val[0]
-            field_names = val[1]
-            self.logger.debug("result: {}, field_names: {}, time: {}".format(result, field_names, time))
-            if isinstance(result, list):
-                table = self.build_table(result, field_names)
-                return table.__html__(), self.insert_time(time)
-            else:
-                self.logger.info("Invalid query")
-                return "Error", "Error"
-        except:
-            raise Exception
+
+        val, time = self.execute_category_query(category)
+        result = val[0]
+        field_names = val[1]
+        self.logger.debug("result: {}, field_names: {}, time: {}".format(result, field_names, time))
+        if isinstance(result, list):
+            table = self.build_table(result, field_names)
+            return table.__html__(), self.insert_time(time)
+        else:
+            self.logger.info("Invalid query")
+            return "Error", "Error"
 
     @time_query
     def execute_category_query(self, category):
         category = category.replace(' ', '_')
-        try:
-            cursor = db_instance.db_connection.cursor()
-            cursor.execute(self.query, (category, category, category, category))
-            field_names = [i[0] for i in cursor.description]
-            result = list(map(self.helper, cursor.fetchall()))
-            return result, field_names
-        except Exception as e:
-            logger.error(e)
-            return 'Error processing sql code: {}'.format(e)
+        cursor = db_instance.db_connection.cursor()
+        cursor.execute(self.query, (category, category, category, category))
+        field_names = [i[0] for i in cursor.description]
+        result = list(map(self.helper, cursor.fetchall()))
+        return result, field_names
 
 
 # query = """

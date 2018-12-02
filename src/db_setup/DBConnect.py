@@ -1,11 +1,17 @@
 import mysql.connector as connector
 from utils.singleton import Singleton
 from utils.wiki_logger import  WikiLogger
+import os
 
-HOST = '127.0.0.1'
-USER = 'root'
-DATABASE = 'wiki_database'
-PORT = '3306'
+HOST = os.getenv('HOST', '127.0.0.1')
+USER = os.getenv('USERNAME', 'root')
+DATABASE = os.getenv('TARGET_DB', 'wiki_database')
+PORT = os.getenv('PORT_NUM', '3306')
+
+# HOST = '127.0.0.1'
+# USER = 'root'
+# DATABASE = 'wiki_database'
+# PORT = '3306'
 
 logger = WikiLogger(__name__).logger
 

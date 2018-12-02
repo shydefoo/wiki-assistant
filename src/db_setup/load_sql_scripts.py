@@ -65,19 +65,24 @@ def load_data():
         run_sql_file(file, DATA_DIR)
 
 
-def convert_xml_to_sql(input_file):
-    pass
-
-
+def check_for_existing_tables():
+    cursor = db_instance.db_connection.cursor()
+    cursor.execute("SHOW TABLES IN {}".format(os.getenv('TARGET_DB', 'wiki_database')))
+    tables = cursor.fetchall()
+    return len(tables)
 
 if __name__ == '__main__':
-    pass
-    run_sql_file(CREATE_PAGE_TABLE, TABLE_SETUP)
-    run_sql_file(PAGE, DATA_DIR)
-    # run_sql_file(CREATE_CAT_TABLE, TABLE_SETUP)
-    # run_sql_file(CREATE_PAGELINKS_TABLE, TABLE_SETUP)
-    # run_sql_file(CREATE_REVISION_TABLE, TABLE_SETUP)
-    # run_sql_file(CREATE_CAT_LINKS_TABLE, TABLE_SETUP)
-    # run_sql_file(CAT_LINKS, DATA_DIR)
-    # run_sql_file(REVISION, DATA_DIR)
+    # primitive check. If 1 table is missing, reloads the whole database
+    if(check_for_existing_tables() == 0):
+        run_sql_file(CREATE_PAGE_TABLE, TABLE_SETUP)
+        run_sql_file(CREATE_CAT_TABLE, TABLE_SETUP)
+        run_sql_file(CREATE_PAGELINKS_TABLE, TABLE_SETUP)
+        run_sql_file(CREATE_REVISION_TABLE, TABLE_SETUP)
+        run_sql_file(CREATE_CAT_LINKS_TABLE, TABLE_SETUP)
+
+        run_sql_file(CAT_LINKS, DATA_DIR)
+        run_sql_file(REVISION, DATA_DIR)
+        run_sql_file(PAGE, DATA_DIR)
+        run_sql_file(CAT, DATA_DIR)
+        run_sql_file(PAGE_LINKS, DATA_DIR)
 

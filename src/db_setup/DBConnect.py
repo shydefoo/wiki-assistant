@@ -7,7 +7,7 @@ USER = 'root'
 DATABASE = 'wiki_database'
 PORT = '3306'
 
-logger = WikiLogger()
+logger = WikiLogger(__name__).logger
 
 class DBConnect(metaclass=Singleton):
 
@@ -24,4 +24,4 @@ class DBConnect(metaclass=Singleton):
 
 if __name__ == '__main__':
     db_instance = DBConnect()
-    print(db_instance.db_connection)
+    logger.debug(db_instance.db_connection)

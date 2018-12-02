@@ -33,7 +33,7 @@ class OutdatednessByCat(ServiceBase):
             self.logger.debug("result: {}, field_names: {}, time: {}".format(result, field_names, time))
             if isinstance(result, list):
                 table = self.build_table(result, field_names)
-                return table.__html__(), time
+                return table.__html__(), self.insert_time(time)
             else:
                 self.logger.info("Invalid query")
                 return "Error", "Error"

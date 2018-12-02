@@ -40,3 +40,6 @@ class ServiceBase:
         item_table = ItemTable(result)
 
         return item_table
+
+    def insert_time(self, time):
+        return "<h1>Time taken: {}</h1>".format(time)

@@ -19,7 +19,7 @@ def find_outdated_cat():
             service = wiki_cateogry_service.OutdatednessByCat()
             result, time = service.get_result(category)
             logger.info("Query time: {}".format(time))
-            return Response(result)
+            return Response(time + result)
 
 @app.route('/query', methods=['POST'])
 def perform_query():
@@ -30,10 +30,9 @@ def perform_query():
         try:
             result, time = service.get_result(query)
             logger.info("Query time: {}".format(time))
+            return Response(time + result)
         except Exception as e:
-            logger.error(e)
-            return Response(e)
-        return Response(result)
+            return Response(str(e))
     else:
         return Response("Empty Query")
 

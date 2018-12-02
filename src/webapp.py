@@ -3,6 +3,7 @@ from utils.wiki_logger import WikiLogger
 from flask import Flask
 from flask import request, Response, render_template, jsonify
 from services import wiki_cateogry_service, normal_sql_service
+from db_setup.load_sql_scripts import *
 app = Flask(__name__)
 
 logger = WikiLogger(__name__).logger
@@ -30,7 +31,7 @@ def find_outdated_cat():
 def perform_query():
     logger.info(request.form)
     query = request.form.get('query', None)
-    if query is not None:
+    if query is not None and len(query)>0 :
         service = normal_sql_service.ExecuteQuery()
         try:
             result, time = service.get_result(query)
@@ -41,6 +42,26 @@ def perform_query():
     else:
         return Response("Empty Query")
 
+@app.route('/load_pages')
+def load_wiki_pages():
+    load_page()
+
+@app.route('/load_cat')
+def load_wiki_cat():
+    load_cat()
+
+
+@app.route('/load_paglinks')
+def load_wiki_pagelinks():
+    load_pagelinks()
+
+@app.route('/load_catlinks')
+def load_wiki_catlinks():
+    load_catlinks()
+
+@app.route('/load_revisions')
+def load_wiki_revision():
+    load_revisions()
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=False)

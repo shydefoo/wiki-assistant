@@ -9,7 +9,6 @@ COPY requirements.txt /app
 
 RUN pip install -r requirements.txt
 RUN chmod 777 wait-for-it.sh
-EXPOSE 5000
 
 ENV HOST db_service
 ENV PORT_NUM 3306

@@ -2,7 +2,7 @@ import logging
 import sys
 
 
-LOG_LEVEL = 'DEBUG'
+LOG_LEVEL = 'INFO'
 
 class WikiLogger(logging.Logger):
 

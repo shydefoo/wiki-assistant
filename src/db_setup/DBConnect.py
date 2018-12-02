@@ -6,6 +6,7 @@ import os
 HOST = os.getenv('HOST', '127.0.0.1')
 USER = os.getenv('USERNAME', 'root')
 DATABASE = os.getenv('TARGET_DB', 'wiki_database')
+PW = os.getenv('MYSQL_ROOT_PASSWORD', '')
 PORT = os.getenv('PORT_NUM', '3306')
 
 # HOST = '127.0.0.1'
@@ -19,7 +20,7 @@ class DBConnect(metaclass=Singleton):
 
     def __init__(self):
         # temp way to init
-        self.db_connection = connector.connect(user=USER, host=HOST, port=PORT, database=DATABASE, buffered=True)
+        self.db_connection = connector.connect(user=USER, host=HOST, port=PORT, database=DATABASE, password=PW, buffered=True)
         # self.cursor = self.db_connection.cursor()
         # logger.debug("DB connection set up")
 

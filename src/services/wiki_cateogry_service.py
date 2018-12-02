@@ -5,10 +5,8 @@ from utils.sql_timer import time_query
 from utils.wiki_logger import WikiLogger
 import os
 
-logger = WikiLogger(__name__).logger
-db_instance = DBConnect()
 
-CURRENT_DIR = os.path.dirname(__name__)
+CURRENT_DIR = os.path.dirname(__file__)
 SQL_SCRIPTS_DIR = os.path.join(os.path.dirname(CURRENT_DIR), 'sql_scripts')
 OUTDATEDNESS_SQL = os.path.join(SQL_SCRIPTS_DIR, 'outdatedness.sql')
 
@@ -41,7 +39,7 @@ class OutdatednessByCat(ServiceBase):
     @time_query
     def execute_category_query(self, category):
         category = category.replace(' ', '_')
-        cursor = db_instance.db_connection.cursor()
+        cursor = self.db_instance.db_connection.cursor()
         cursor.execute(self.query, (category, category, category, category))
         field_names = [i[0] for i in cursor.description]
         result = list(map(self.helper, cursor.fetchall()))

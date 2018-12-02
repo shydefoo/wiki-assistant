@@ -51,7 +51,7 @@ def run_sql_file(input_file, file_dir):
         cursor.execute(stmt)
         logger.info("{} loaded".format(filename))
         logger.debug("{} ".format(stmt))
-        db_instance.db_connection.commit()
+    db_instance.db_connection.commit()
 
 def create_tables():
     filenames = [CREATE_PAGE_TABLE, CREATE_PAGELINKS_TABLE, CREATE_CAT_LINKS_TABLE, CREATE_CAT_TABLE]
@@ -71,11 +71,33 @@ def check_for_existing_tables():
     tables = cursor.fetchall()
     return len(tables)
 
+def load_page():
+    run_sql_file(CREATE_PAGE_TABLE, TABLE_SETUP)
+    run_sql_file(PAGE, DATA_DIR)
+
+def load_cat():
+    run_sql_file(CREATE_CAT_TABLE, TABLE_SETUP)
+    run_sql_file(PAGE, DATA_DIR)
+
+def load_pagelinks():
+    run_sql_file(CREATE_PAGELINKS_TABLE, TABLE_SETUP)
+    run_sql_file(PAGE_LINKS, DATA_DIR)
+
+def load_catlinks():
+    run_sql_file(CREATE_CAT_LINKS_TABLE, TABLE_SETUP)
+    run_sql_file(CAT_LINKS, DATA_DIR)
+
+def load_revisions():
+    run_sql_file(CREATE_REVISION_TABLE, TABLE_SETUP)
+    run_sql_file(REVISION, DATA_DIR)
+
+
+
 if __name__ == '__main__':
     # primitive check. If 1 table is missing, reloads the whole database
     # print(HOME)
     # print(os.path.join(CREATE_PAGE_TABLE,TABLE_SETUP))
-    if(check_for_existing_tables() == 0):
+    if(check_for_existing_tables() < 5):
         run_sql_file(CREATE_PAGE_TABLE, TABLE_SETUP)
         run_sql_file(CREATE_CAT_TABLE, TABLE_SETUP)
         run_sql_file(CREATE_PAGELINKS_TABLE, TABLE_SETUP)

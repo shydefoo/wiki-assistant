@@ -2,7 +2,7 @@ import os
 from utils.wiki_logger import WikiLogger
 from flask import Flask
 from flask import request, Response, render_template, jsonify
-from services import wiki_category, run_sql_query
+from services import wiki_cateogry_service, normal_sql_service
 app = Flask(__name__)
 
 logger = WikiLogger(__name__).logger
@@ -16,15 +16,23 @@ def find_outdated_cat():
     if request.method == 'POST':
         category = request.form.get('category', None)
         if category is not None:
-            result = wiki_category.find_outdatedness_sql(category)
-            return jsonify(result)
+            service = wiki_cateogry_service.OutdatednessByCat()
+            result, time = service.get_result(category)
+            logger.info("Query time: {}".format(time))
+            return Response(result)
 
 @app.route('/query', methods=['POST'])
 def perform_query():
     logger.info(request.form)
     query = request.form.get('query', None)
     if query is not None:
-        result = run_sql_query.get_results(query)
+        service = normal_sql_service.ExecuteQuery()
+        try:
+            result, time = service.get_result(query)
+            logger.info("Query time: {}".format(time))
+        except Exception as e:
+            logger.error(e)
+            return Response(e)
         return Response(result)
     else:
         return Response("Empty Query")

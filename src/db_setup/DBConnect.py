@@ -13,8 +13,8 @@ class DBConnect(metaclass=Singleton):
 
     def __init__(self):
         # temp way to init
-        self.db_connection = connector.connect(user=USER, host=HOST, port=PORT, database=DATABASE)
-        self.cursor = self.db_connection.cursor()
+        self.db_connection = connector.connect(user=USER, host=HOST, port=PORT, database=DATABASE, buffered=True)
+        # self.cursor = self.db_connection.cursor()
         # logger.debug("DB connection set up")
 
     def __del__(self):

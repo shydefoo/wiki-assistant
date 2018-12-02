@@ -5,7 +5,7 @@ from utils.wiki_logger import WikiLogger
 
 logger = WikiLogger().logger
 
-CURRENT_DIR = os.path.dirname(os.path.realpath(__name__))
+CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 HOME = os.path.dirname(os.path.dirname(CURRENT_DIR))
 DATA_DIR = os.path.join(HOME, 'data')
 TABLE_SETUP = os.path.join(CURRENT_DIR, 'table_setup')
@@ -27,7 +27,7 @@ CREATE_PAGELINKS_TABLE = 'create_pagelinks_table.sql'
 CREATE_REVISION_TABLE = 'create_revision_table.sql'
 
 db_instance = DBConnect()
-
+cursor = db_instance.db_connection.cursor()
 
 def read_sql_script(pathname):
     with open(os.path.join(DATA_DIR,pathname)) as file:
@@ -48,7 +48,7 @@ def run_sql_file(input_file, file_dir):
     filename = os.path.join(file_dir, input_file)
     stmts = parse_sql(filename)
     for stmt in stmts:
-        db_instance.cursor.execute(stmt)
+        cursor.execute(stmt)
         logger.info("{} loaded".format(filename))
         logger.debug("{} ".format(stmt))
         db_instance.db_connection.commit()
@@ -73,6 +73,8 @@ def check_for_existing_tables():
 
 if __name__ == '__main__':
     # primitive check. If 1 table is missing, reloads the whole database
+    # print(HOME)
+    # print(os.path.join(CREATE_PAGE_TABLE,TABLE_SETUP))
     if(check_for_existing_tables() == 0):
         run_sql_file(CREATE_PAGE_TABLE, TABLE_SETUP)
         run_sql_file(CREATE_CAT_TABLE, TABLE_SETUP)

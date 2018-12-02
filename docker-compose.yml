@@ -11,8 +11,10 @@ services:
       - "3306:3306"
     deploy:
       replicas: 1
+    volumes:
+      - db_vol:/bitnami/mysql/data
   webapp:
-    image: wiki_app:latest
+    image: wiki_app
     deploy:
       replicas: 1
     ports:
@@ -24,3 +26,7 @@ services:
 
 networks:
   webnet:
+
+volumes:
+  db_vol:
+

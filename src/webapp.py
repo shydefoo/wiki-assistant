@@ -16,10 +16,15 @@ def find_outdated_cat():
     if request.method == 'POST':
         category = request.form.get('category', None)
         if category is not None:
-            service = wiki_cateogry_service.OutdatednessByCat()
-            result, time = service.get_result(category)
-            logger.info("Query time: {}".format(time))
-            return Response(time + result)
+            try:
+                service = wiki_cateogry_service.OutdatednessByCat()
+                result, time = service.get_result(category)
+                logger.info("Query time: {}".format(time))
+                return Response(time + result)
+            except Exception as e:
+                return Response(str(e))
+        else:
+            return Response("")
 
 @app.route('/query', methods=['POST'])
 def perform_query():

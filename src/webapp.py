@@ -5,6 +5,7 @@ from flask import request, Response, render_template, jsonify
 from services import wiki_cateogry_service, normal_sql_service
 from db_setup.load_sql_scripts import *
 app = Flask(__name__)
+from multiprocessing import Process
 
 logger = WikiLogger(__name__).logger
 
@@ -44,24 +45,51 @@ def perform_query():
 
 @app.route('/load_pages')
 def load_wiki_pages():
-    load_page()
+    try:
+        p = Process(target=load_page)
+        p.start()
+        # load_page()
+        return Response('Load Page Completed')
+    except Exception as e:
+        return Response(str(e))
 
 @app.route('/load_cat')
 def load_wiki_cat():
-    load_cat()
+    try:
+        load_cat()
+        return Response('Load Cat Completed')
+    except Exception as e:
+        return Response(str(e))
 
-
-@app.route('/load_paglinks')
+@app.route('/load_pagelinks')
 def load_wiki_pagelinks():
-    load_pagelinks()
+    try:
+        p = Process(target=load_pagelinks)
+        # load_pagelinks()
+        p.start()
+        return Response('Load Pagelinks')
+    except Exception as e:
+        return Response(str(e))
 
 @app.route('/load_catlinks')
 def load_wiki_catlinks():
-    load_catlinks()
+    try:
+        p = Process(target=load_catlinks)
+        p.start()
+        # load_catlinks()
+        return Response('Load catlinks completed')
+    except Exception as e:
+        return Response(str(e))
 
 @app.route('/load_revisions')
 def load_wiki_revision():
-    load_revisions()
+    try:
+        p = Process(target=load_revisions)
+        p.start()
+        # load_revisions()
+        return Response('Load Revisions')
+    except Exception as e:
+        return Response(str(e))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=False)

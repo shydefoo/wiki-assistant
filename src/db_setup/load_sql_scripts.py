@@ -26,8 +26,7 @@ CREATE_CAT_LINKS_TABLE = 'create_category_links.sql'
 CREATE_PAGELINKS_TABLE = 'create_pagelinks_table.sql'
 CREATE_REVISION_TABLE = 'create_revision_table.sql'
 
-db_instance = DBConnect()
-cursor = db_instance.db_connection.cursor()
+
 
 def read_sql_script(pathname):
     with open(os.path.join(DATA_DIR,pathname)) as file:
@@ -45,13 +44,20 @@ def load_create_query(create_file):
 
 
 def run_sql_file(input_file, file_dir):
+    db_instance = DBConnect()
+    cursor = db_instance.db_connection.cursor()
     filename = os.path.join(file_dir, input_file)
     stmts = parse_sql(filename)
     for stmt in stmts:
-        cursor.execute(stmt)
-        logger.info("{} loaded".format(filename))
-        logger.debug("{} ".format(stmt))
-    db_instance.db_connection.commit()
+        try:
+            cursor.execute(stmt)
+            logger.debug("{} ".format(stmt))
+            db_instance.db_connection.commit()
+        except Exception as e:
+            logger.error("Failed to execute: {}".format(stmt))
+            logger.error(str(e))
+
+    logger.info("{} loaded".format(filename))
 
 def create_tables():
     filenames = [CREATE_PAGE_TABLE, CREATE_PAGELINKS_TABLE, CREATE_CAT_LINKS_TABLE, CREATE_CAT_TABLE]
@@ -66,6 +72,8 @@ def load_data():
 
 
 def check_for_existing_tables():
+    db_instance = DBConnect()
+    cursor = db_instance.db_connection.cursor()
     cursor = db_instance.db_connection.cursor()
     cursor.execute("SHOW TABLES IN {}".format(os.getenv('TARGET_DB', 'wiki_database')))
     tables = cursor.fetchall()

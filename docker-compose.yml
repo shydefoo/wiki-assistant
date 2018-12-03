@@ -15,7 +15,7 @@ services:
     volumes:
       - db_vol:/bitnami/mysql/data
   webapp:
-    image: applecider/wiki_app
+    image: wiki_app
     env_file:
       - .env
     deploy:

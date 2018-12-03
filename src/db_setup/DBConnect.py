@@ -16,14 +16,14 @@ PORT = os.getenv('PORT_NUM', '3306')
 
 logger = WikiLogger(__name__).logger
 
-class DBConnect(metaclass=Singleton):
+class DBConnect():
 
     def __init__(self):
         # temp way to init
         self.db_connection = connector.connect(user=USER, host=HOST, port=PORT, database=DATABASE, password=PW, buffered=True)
         # self.cursor = self.db_connection.cursor()
         # logger.debug("DB connection set up")
-
+        self.db_connection.cursor().execute('SET GLOBAL max_allowed_packet=1073741824;')
     def __del__(self):
         # self.cursor.close()
         self.db_connection.close()

@@ -22,30 +22,23 @@
 				<h2>Enter category:</h2>
 				<form class="form-origin" method="post" action="find_outdated_page">
 					<input type="text" name="category" class="form-control">
-					<button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Get Most Outdated Page</button>
+					<button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Get Most Outdated Page Title</button>
 				</form>
 				<br>
 				<br>
                 <h2>Write SQL Query</h2>
                 <form class="form-origin" method="post" action="query">
 					<textarea name="query" id="query" class="form-control" placeholder="Enter Sql Query"></textarea>
-                    <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                    <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Submit Query</button>
 				</form>
 
-				<a href="load_pages">Load Pages</a>
-				<a href="load_cat">Load Category</a>
-				<a href="load_pagelinks">Load Page Links</a>
-				<a href="load_catlinks">Load Cat Links</a>
-				<a href="load_revisions">Load Revisions</a>
+				<!--<a href="load_pages">Load Pages</a>-->
+				<!--<a href="load_cat">Load Category</a>-->
+				<!--<a href="load_pagelinks">Load Page Links</a>-->
+				<!--<a href="load_catlinks">Load Cat Links</a>-->
+				<!--<a href="load_revisions">Load Revisions</a>-->
 
-				<ul class = "list-group">
-				{% for post in posts %}
-					<div>
-						<li class = "list-group-item">{{post}}</li>
-					</div>
 
-				{% endfor %}
-				</ul>
 			</div>
 
 

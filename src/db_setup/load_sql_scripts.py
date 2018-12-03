@@ -74,7 +74,6 @@ def load_data():
 def check_for_existing_tables():
     db_instance = DBConnect()
     cursor = db_instance.db_connection.cursor()
-    cursor = db_instance.db_connection.cursor()
     cursor.execute("SHOW TABLES IN {}".format(os.getenv('TARGET_DB', 'wiki_database')))
     tables = cursor.fetchall()
     return len(tables)
@@ -102,9 +101,6 @@ def load_revisions():
 
 
 if __name__ == '__main__':
-    # primitive check. If 1 table is missing, reloads the whole database
-    # print(HOME)
-    # print(os.path.join(CREATE_PAGE_TABLE,TABLE_SETUP))
     if(check_for_existing_tables() < 5):
         run_sql_file(CREATE_PAGE_TABLE, TABLE_SETUP)
         run_sql_file(CREATE_CAT_TABLE, TABLE_SETUP)

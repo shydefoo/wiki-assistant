@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# Code borrowed from https://github.com/andreasnuesslein/mwdum.py
 
 import sys
 from random import random

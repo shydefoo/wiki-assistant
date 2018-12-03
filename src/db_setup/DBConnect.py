@@ -9,10 +9,6 @@ DATABASE = os.getenv('TARGET_DB', 'wiki_database')
 PW = os.getenv('MYSQL_ROOT_PASSWORD', '')
 PORT = os.getenv('PORT_NUM', '3306')
 
-# HOST = '127.0.0.1'
-# USER = 'root'
-# DATABASE = 'wiki_database'
-# PORT = '3306'
 
 logger = WikiLogger(__name__).logger
 

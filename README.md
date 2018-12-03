@@ -1,7 +1,5 @@
 # wiki_assistant
 
-UI endpoint: http://206.189.40.160/
-
 Data can be downloaded here at : https://dumps.wikimedia.org/simplewiki/20181120/
 categorylinks - sql  simplewiki-20181120-categorylinks.sql.gz
 page - sql  simplewiki-20181120-page.sql.gz

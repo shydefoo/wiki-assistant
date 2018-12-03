@@ -24,10 +24,17 @@ class DBConnect():
         # self.cursor = self.db_connection.cursor()
         # logger.debug("DB connection set up")
         self.db_connection.cursor().execute('SET GLOBAL max_allowed_packet=1073741824;')
+
     def __del__(self):
         # self.cursor.close()
         self.db_connection.close()
 
+    def settings_for_sql_dump(self):
+        cursor = self.db_connection.cursor()
+        cursor.execute('set global net_buffer_length=1000000;')
+        cursor.execute('set global net_buffer_length=1000000;')
+        cursor.execute('SET AUTOCOMMIT = 0;')
+        return cursor
 
 if __name__ == '__main__':
     db_instance = DBConnect()

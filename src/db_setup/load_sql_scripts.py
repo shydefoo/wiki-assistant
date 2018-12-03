@@ -45,7 +45,7 @@ def load_create_query(create_file):
 
 def run_sql_file(input_file, file_dir):
     db_instance = DBConnect()
-    cursor = db_instance.db_connection.cursor()
+    cursor = db_instance.settings_for_sql_dump()
     filename = os.path.join(file_dir, input_file)
     stmts = parse_sql(filename)
     for stmt in stmts:

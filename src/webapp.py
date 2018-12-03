@@ -5,7 +5,7 @@ from flask import request, Response, render_template, jsonify
 from services import wiki_cateogry_service, normal_sql_service
 from db_setup.load_sql_scripts import *
 app = Flask(__name__)
-from multiprocessing import Process
+from threading import Thread
 
 logger = WikiLogger(__name__).logger
 
@@ -46,7 +46,7 @@ def perform_query():
 @app.route('/load_pages')
 def load_wiki_pages():
     try:
-        p = Process(target=load_page)
+        p = Thread(target=load_page)
         p.start()
         # load_page()
         return Response('Load Page Completed')
@@ -64,7 +64,7 @@ def load_wiki_cat():
 @app.route('/load_pagelinks')
 def load_wiki_pagelinks():
     try:
-        p = Process(target=load_pagelinks)
+        p = Thread(target=load_pagelinks)
         # load_pagelinks()
         p.start()
         return Response('Load Pagelinks')
@@ -74,7 +74,7 @@ def load_wiki_pagelinks():
 @app.route('/load_catlinks')
 def load_wiki_catlinks():
     try:
-        p = Process(target=load_catlinks)
+        p = Thread(target=load_catlinks)
         p.start()
         # load_catlinks()
         return Response('Load catlinks completed')
@@ -84,7 +84,7 @@ def load_wiki_catlinks():
 @app.route('/load_revisions')
 def load_wiki_revision():
     try:
-        p = Process(target=load_revisions)
+        p = Thread(target=load_revisions)
         p.start()
         # load_revisions()
         return Response('Load Revisions')

@@ -15,10 +15,12 @@ Tables currently loaded into MySQL db:
 
 Example Query: 
 ```SELECT COUNT(*) FROM page;```
+### Do not drop tables. Query will run so long as there are no syntax errors. No restriction of user's actions in the interest of time
 
 Example Category:
 ``` Microsoft```
 
+Table Schema
 * SQL code contains predefined table schema. Easy to upload via python mysql-connector
 * xml code had to be parsed using mw_dm.py script to generate sql code for revision data
 
@@ -30,7 +32,7 @@ Deployment:
 
 
 Approach taken:
-* Used SQL dumps provided by wiki to load into MySql db. Simplest approach, Sql dumps stored in /data folder (create folder if folder doesn’t exist)
+* Used SQL dumps provided by wiki to load into MySql db. Simplest approach, Sql dumps stored in /data folder (create folder if folder doesn’t exist)
 * Functions used to run sql scripts through python-connect api located in folder db_setup/load_sql_scripts.py
 * 2 services exposed via endpoints (Run query, Search outdated page by category)
 * Each service extends a base service which provides basic functionality to display results in the same format
@@ -38,7 +40,6 @@ Approach taken:
 
 
 Requirements:
-
 UI for user to key in sql query 
 * In the interest of time, I didn’t put in any checks on the sql query (eg. To limit only select statements)
 * Query will run as long as there are no syntax errors

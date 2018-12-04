@@ -40,7 +40,7 @@ class OutdatednessByCat(ServiceBase):
     def execute_category_query(self, category):
         category = category.replace(' ', '_')
         cursor = self.db_instance.db_connection.cursor()
-        cursor.execute(self.query, (category, category, category, category))
+        cursor.execute(self.query, (category, category))
         field_names = [i[0] for i in cursor.description]
         result = list(map(self.helper, cursor.fetchall()))
         return result, field_names

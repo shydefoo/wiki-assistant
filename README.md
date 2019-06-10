@@ -2,6 +2,20 @@
 
 This was a take home assignment for one of my technical interviews for a data engineering role. I eventually removed server running that the app was deployed on after the team looked at it. 
 
+## To run flask app:
+Build docker image and run container: 
+```
+docker build --name wiki_assistant .
+docker run wiki_assistant -p 5000:5000
+```
+Run using python 3:
+```
+virtualenv ENV 
+source /path/to/ENV/bin/activate
+pip install -r requirements.txt
+python src/webapp.py
+```
+
 These were the requirements:
 1. Create a database based on the Simple English Wikipedia content. This database
 should contain the following:  

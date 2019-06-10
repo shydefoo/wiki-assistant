@@ -1,5 +1,34 @@
 # wiki_assistant
 
+This was a take home assignment for one of my technical interviews for a data engineering role. I eventually removed server running that the app was deployed on after the team looked at it. 
+
+These were the requirements:
+1. Create a database based on the Simple English Wikipedia content. This database
+should contain the following:  
+* Basic metadata for every wiki page:  
+i. Page title  
+ii. Categories of the page  
+iii. Date of last modification  
+* The links between the wiki pages, defined by the following:  
+i. The page which refers to another page  
+ii. The referred page  
+iii. The position of this link in the ordered list of all the links on the referring
+page.
+
+2. Create a web UI which contains an SQL interface for your database. Use a free cloud
+provider for deploying your application. The user of this UI have to be able to type SQL
+queries into a form and it has to display the result of the query.
+3. Using your database, write and SQL query to find the wiki page which:  
+* corresponds to a given category
+AND
+* it is the most outdated
+A page is called outdated if at least one of the pages it refers to was modified later than
+the page itself. The measure of this outdatedness is the biggest difference between the
+last modification of a referred page and the last modification of the page.
+4. Create a simple web UI for the solution of question 3 where the user can enter a
+category and the UI displays the title of the page.
+5. Display the running time of the SQL queries on the web UI.
+
 Data can be downloaded here at : https://dumps.wikimedia.org/simplewiki/20181120/
 categorylinks - sql  simplewiki-20181120-categorylinks.sql.gz
 page - sql  simplewiki-20181120-page.sql.gz

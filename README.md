@@ -1,4 +1,4 @@
-# wiki_assistant
+# Wiki Assistant
 
 This was a take home assignment for one of my technical interviews for a data engineering role. I eventually removed server running that the app was deployed on after the team looked at it. 
 
